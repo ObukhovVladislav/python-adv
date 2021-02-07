@@ -22,3 +22,4 @@ def email_is_valid(email):
 assert email_is_valid('ivan@kss45.kpk.ru')
 assert not email_is_valid('ivan@kss45')
 assert not email_is_valid('ivan@kss45.')
+
