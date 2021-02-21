@@ -11,3 +11,7 @@ def parent(num):
         return second_child
 
 
+first = parent(1)
+second = parent(2)
+# print(first)
+# print(second)
