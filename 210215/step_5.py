@@ -14,10 +14,6 @@ def str_to_float(func):
     return inner
 
 
-# def my_sum(a, b):
-#     return a + b
-
-
 # @str_to_int
 @str_to_float
 def nums_sum(*nums):
