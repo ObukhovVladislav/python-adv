@@ -1,11 +1,11 @@
 def parent():
-    print("Printing from the parent() function")
+    print("Печать из функции parent ()")
 
     def first_child():
-        print("Printing from the first_child() function")
+        print("Печать из функции parent ()")
 
     def second_child():
-        print("Printing from the second_child() function")
+        print("Печать из функции second_child ()")
 
     second_child()
     first_child()

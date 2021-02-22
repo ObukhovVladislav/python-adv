@@ -3,7 +3,7 @@ def say_hello(name):
 
 
 def be_awesome(name):
-    return f"Yo {name}, together we are the awesomest!"
+    return f"Yo {name}, вместе мы самые крутые!!"
 
 
 def greet_bob(greeter_func):
