@@ -1,9 +1,9 @@
 def parent(num):
     def first_child():
-        return "Hi, I am Emma"
+        return "Привет я Владислав"
 
     def second_child():
-        return "Call me Liam"
+        return "Зови меня Влад"
 
     if num == 1:
         return first_child
