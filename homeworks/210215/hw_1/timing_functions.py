@@ -4,7 +4,7 @@ import time
 
 
 def timer(func):
-    """Print the runtime of the decorated function"""
+    """Вывести время выполнения декорированной функции"""
 
     @functools.wraps(func)
     def wrapper_timer(*args, **kwargs):
@@ -12,7 +12,7 @@ def timer(func):
         value = func(*args, **kwargs)
         end_time = time.perf_counter()  # 2
         run_time = end_time - start_time  # 3
-        print(f"Finished {func.__name__!r} in {run_time:.4f} secs")
+        print(f"Законченные {func.__name__!r} in {run_time:.4f} секунды")
         return value
 
     return wrapper_timer
