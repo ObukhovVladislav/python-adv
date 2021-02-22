@@ -3,11 +3,12 @@
 #
 # @do_twice
 def return_greeting(name):
-    print("Creating greeting")
+    print("Создание приветствия")
     return f"Hi {name}"
 
 
-hi_adam = return_greeting("Adam")
+hi_vlad = return_greeting("Vlad")
+
 
 def do_twice(func):
     def wrapper_do_twice(*args, **kwargs):
@@ -15,5 +16,6 @@ def do_twice(func):
         return func(*args, **kwargs)
 
     return wrapper_do_twice
-return_greeting("Adam")
 
+
+return_greeting("Vlad")
