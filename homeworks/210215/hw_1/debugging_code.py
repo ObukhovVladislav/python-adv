@@ -9,9 +9,9 @@ def debug(func):
         args_repr = [repr(a) for a in args]  # 1
         kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]  # 2
         signature = ", ".join(args_repr + kwargs_repr)  # 3
-        print(f"Calling {func.__name__}({signature})")
+        print(f"Вызов {func.__name__}({signature})")
         value = func(*args, **kwargs)
-        print(f"{func.__name__!r} returned {value!r}")  # 4
+        print(f"{func.__name__!r} вернулся {value!r}")  # 4
         return value
 
     return wrapper_debug
@@ -20,7 +20,9 @@ def debug(func):
 @debug
 def make_greeting(name, age=None):
     if age is None:
-        return f"Howdy {name}!"
+        return f"Привет {name}!"
     else:
-        return f"Whoa {name}! {age} already, you are growing up!"
+        return f"Привет {name}! {age} вы уже растете!"
 
+
+make_greeting("Владислав")
