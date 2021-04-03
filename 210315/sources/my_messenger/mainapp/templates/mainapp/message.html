@@ -1,0 +1,16 @@
+{% extends 'mainapp/index.html' %}
+
+{% block content %}
+<h2>Сообщения</h2>
+<div class="messages-list">
+    <ul>
+        {% for item in message %}
+        <li>
+            <a href="#" style="text-decoration: none;">
+                {{ item.text.dialog }} - {{ item.sender.dialog }}
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}}
