@@ -4,6 +4,6 @@ import mainapp.views as mainapp
 app_name = 'mainapp'
 
 urlpatterns = [
-    path('', mainapp.index),
-
+    path('', mainapp.index, name='index'),
+    # path('message/', mainapp.message, name='message'),
 ]

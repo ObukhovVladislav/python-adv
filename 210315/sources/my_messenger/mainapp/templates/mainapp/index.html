@@ -3,21 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ page_title|capfirst }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 {% if user.is_authenticated %}
-<div>
-    <span>{{ user.username }}</span>
-    <a href="{% url 'auth:logout' %}">logout</a>
+<div class="navbar navbar-expand-sm bg-primary navbar-dark">
+        <span style="margin-right: 18px; padding-bottom:2px; color: white; font-size: 20px">
+            {{ user.username }}
+        </span>
+            <a href="{% url 'auth:logout' %}" class="button-logout" style="color:white; padding:8px; font-size: 20px; ">Выйти</a>
 </div>
 {% endif %}
-<h3>Активные диалоги</h3>
+<h3 class="text-center" style="padding-top: 20px;">Активные диалоги</h3>
 <div class="dialogues-list">
-    <ul>
+    <ul class="list-group" style="padding-top: 15px;">
         {% for item in dialogues %}
-        <li>
-            <a href="#" style="text-decoration: none;">
+        <li class="list-group-item">
+            <a class="list-group-item list-group-item-action" href="#" style="text-decoration: none;">
                 {{ item.dialog.created }} - {{ item.dialog.name }}
+                <span class="badge badge-primary badge-pill">2</span>
             </a>
         </li>
         {% endfor %}
