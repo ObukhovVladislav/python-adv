@@ -15,7 +15,7 @@ def index(request):
 
 
 def message(request, message_pk):
-    messages = Message.user.messages.filter(id=message_pk)
+    messages = Message.objects.filter(id=message_pk)
     context = {
         'page_title': 'Сообщения',
         'messages': messages,

@@ -4,11 +4,12 @@
 <h2>Сообщения</h2>
 <div class="messages-list">
     <ul>
-        {% for item in message %}
+        {% for item in messages %}
         <li>
-            <a href="#" style="text-decoration: none;">
-                {{ item.text.dialog }} - {{ item.sender.dialog }}
-            </a>
+            {{ item.text }}
+        </li>
+        <li>
+            {{ item.sender}}
         </li>
         {% endfor %}
     </ul>
