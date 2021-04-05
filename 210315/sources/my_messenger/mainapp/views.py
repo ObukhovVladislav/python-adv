@@ -14,10 +14,10 @@ def index(request):
     return render(request, 'mainapp/index.html', context)
 
 
-# def message(request):
-#     messages = Message.user.messages.filter()
-#     context = {
-#         'page_title': 'Сообщения',
-#         'messages': messages,
-#     }
-#     return render(request, 'mainapp/message.html', context)
+def message(request, message_pk):
+    messages = Message.user.messages.filter(id=message_pk)
+    context = {
+        'page_title': 'Сообщения',
+        'messages': messages,
+    }
+    return render(request, 'mainapp/message.html', context)
