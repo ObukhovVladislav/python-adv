@@ -17,7 +17,7 @@ def index(request):
 def message(request, message_pk):
     message = Message.objects.filter(id=message_pk)
     context = {
-        'page_title': 'Сообщения',
+        'page_title': 'Сообщение',
         'message': message,
     }
     return render(request, 'mainapp/message.html', context)
