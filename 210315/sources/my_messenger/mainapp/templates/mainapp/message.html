@@ -1,17 +1,17 @@
 {% extends 'mainapp/index.html' %}
-
 {% block content %}
 <h2>Сообщения</h2>
 <div class="messages-list">
+    {% for item in messages %}
     <ul>
-        {% for item in messages %}
+        <li>
+            {{ item.sender }}
+
+        </li>
         <li>
             {{ item.text }}
         </li>
-        <li>
-            {{ item.sender }}
-        </li>
-        {% endfor %}
     </ul>
+    {% endfor %}
 </div>
 {% endblock %}}
