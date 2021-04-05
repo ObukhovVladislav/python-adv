@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from mainapp.models import Message
+from mainapp.models import Message, Dialog
 
 
 @login_required
@@ -21,3 +21,12 @@ def message(request, message_pk):
         'message': message,
     }
     return render(request, 'mainapp/message.html', context)
+
+
+def dialog(request, dialog_pk):
+    dialog = Dialog.objects.filter(id=dialog_pk)
+    context = {
+        'page_title': 'Диалог',
+        'dialog': dialog,
+    }
+    return render(request, 'mainapp/dialog.html', context)
