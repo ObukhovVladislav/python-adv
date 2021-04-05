@@ -5,11 +5,11 @@
     {% for item in messages %}
     <ul>
         <li>
-            {{ item.sender }}
+            {{ item.dialog.text }}
 
         </li>
         <li>
-            {{ item.text }}
+            {{ item.dialog.sender }}
         </li>
     </ul>
     {% endfor %}
