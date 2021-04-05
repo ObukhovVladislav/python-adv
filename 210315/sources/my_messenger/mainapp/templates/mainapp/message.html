@@ -1,17 +1,30 @@
-{% extends 'mainapp/index.html' %}
-{% block content %}
-<h2>Сообщения</h2>
-<div class="messages-list">
-    {% for item in messages %}
-    <ul>
-        <li>
-            {{ item.dialog.text }}
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title|default:"Сообщение"|capfirst }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+<body>
+<h3 class="text-center" style="padding-top: 20px;">Сообщения</h3>
+<div class="message-list">
+    <ul class="list-group" style="padding-top: 15px;">
+        {% for item in message %}
+        <li class="list-group-item">
+            {{ item.sender }}
         </li>
-        <li>
-            {{ item.dialog.sender }}
+        <li class="list-group-item">
+            {{ item.text }}
         </li>
+        <li class="list-group-item">
+            {{ item.read }}
+        </li>
+        <li class="list-group-item">
+            {{ item.created }}
+        </li>
+        {% endfor %}
     </ul>
-    {% endfor %}
 </div>
-{% endblock %}}
+</body>
+</html>
