@@ -1,6 +1,6 @@
 from django import forms
 
-from mainapp.models import Dialog, DialogMembers
+from mainapp.models import Dialog
 
 
 class DialogueCreation(forms.ModelForm):
