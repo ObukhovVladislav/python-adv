@@ -5,6 +5,6 @@ app_name = 'mainapp'
 
 urlpatterns = [
     path('', mainapp.index, name='index'),
-    # path('message/<int:message_pk>', mainapp.message, name='message'),
     path('dialog/<int:dialog_pk>', mainapp.dialog, name='dialog'),
+    path('dialogue_creation/', mainapp.dialogue_creation, name='dialogue_creation'),
 ]

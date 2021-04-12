@@ -1,5 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+
+from mainapp.forms import DialogueCreation
 from mainapp.models import Message, DialogMembers, Dialog
 
 
@@ -28,3 +32,20 @@ def dialog(request, dialog_pk):
         'messages': messages,
     }
     return render(request, 'mainapp/dialog.html', context)
+
+
+def dialogue_creation(request):
+    if request.method == 'POST':
+        form = DialogueCreation(request.POST)
+        if form.is_valid():
+            if request.method == 'POST':
+                if form.is_valid():
+                    form.save()
+                    return HttpResponseRedirect(reverse('mainapp:index'))
+    else:
+        form = DialogueCreation()
+    context = {
+        'title': 'Создание диалогов',
+        'form': form,
+    }
+    return render(request, 'mainapp/dialogue_creation.html', context)

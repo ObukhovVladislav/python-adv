@@ -12,7 +12,10 @@
         <span style="margin-right: 18px; padding-bottom:2px; color: white; font-size: 20px">
             {{ user.username }}
         </span>
-            <a href="{% url 'auth:logout' %}" class="button-logout" style="color:white; padding:8px; font-size: 20px; ">Выйти</a>
+    <a href="{% url 'auth:logout' %}" class="button-logout"
+       style="color:white; padding:8px; font-size: 20px;">Выйти</a>
+    <a href="{% url 'mainapp:dialogue_creation' %}" class="button-creation"
+       style="color:white; padding:8px; font-size: 20px; margin-left: 50px;">Создать диалог</a>
 </div>
 {% endif %}
 <h3 class="text-center" style="padding-top: 20px;">Активные диалоги</h3>
@@ -20,7 +23,8 @@
     <ul class="list-group" style="padding-top: 15px;">
         {% for item in dialogues %}
         <li class="list-group-item">
-            <a class="list-group-item list-group-item-action" href="{% url 'main:dialog' item.dialog_id %}" style="text-decoration: none;">
+            <a class="list-group-item list-group-item-action" href="{% url 'mainapp:dialog' item.dialog_id %}"
+               style="text-decoration: none;">
                 {{ item.dialog.created }} - {{ item.dialog.name }}
                 <span class="badge badge-primary badge-pill">2</span>
             </a>
