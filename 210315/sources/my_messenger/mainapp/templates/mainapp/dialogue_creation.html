@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page_title|default:"Создание диалогов"|capfirst }}</title>
+</head>
+<body>
+<h1>Создание диалога</h1>
+<div>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-primary">Создать диалог</button>
+    </form>
+</div>
+</body>
+</html>
