@@ -31,8 +31,8 @@
         <li class="list-group-item">
             <a class="list-group-item list-group-item-action" href="{% url 'mainapp:dialog' item.dialog_id %}"
                style="text-decoration: none;">
-                {{ item.dialog.created }} - {{ item.dialog.name }}
-                <span class="badge badge-primary badge-pill">2</span>
+                {{ item.dialog.created }}
+                {% if item.dialog.name %} - {{ item.dialog.name }}{% endif %}
             </a>
         </li>
         {% endfor %}
