@@ -6,5 +6,7 @@ app_name = 'mainapp'
 urlpatterns = [
     path('', mainapp.index, name='index'),
     path('dialog/<int:dialog_pk>/', mainapp.dialog, name='dialog'),
-    path('dialogue_creation/', mainapp.dialogue_creation, name='dialogue_creation'),
+    path('dialog/create/', mainapp.dialog_create, name='dialog_create'),
+    path('user/dialog/create/<int:user_id>/', mainapp.user_dialog_create,
+         name='user_dialog_create'),
 ]

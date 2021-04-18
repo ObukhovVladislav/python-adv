@@ -1,9 +1,9 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 
-from mainapp.forms import DialogueCreation
 from mainapp.models import Message, DialogMembers, Dialog
 
 
@@ -34,18 +34,36 @@ def dialog(request, dialog_pk):
     return render(request, 'mainapp/dialog.html', context)
 
 
-def dialogue_creation(request):
-    if request.method == 'POST':
-        form = DialogueCreation(request.POST)
-        if form.is_valid():
-            if request.method == 'POST':
-                if form.is_valid():
-                    form.save()
-                    return HttpResponseRedirect(reverse('mainapp:index'))
-    else:
-        form = DialogueCreation()
+def dialog_create(request):
+    dialogues = request.user.dialogs.select_related('dialog').all(). \
+        values_list('dialog_id', flat=True)
+    interlocutors = DialogMembers.objects.filter(dialog__in=dialogues). \
+        values_list('member_id', flat=True)
+    new_interlocutors = User.objects.exclude(pk__in=interlocutors)
+
     context = {
-        'title': 'Создание диалогов',
-        'form': form,
+        'page_title': 'новый диалог',
+        'new_interlocutors': new_interlocutors,
     }
-    return render(request, 'mainapp/dialogue_creation.html', context)
+    return render(request, 'mainapp/dialog_create.html', context)
+
+
+def user_dialog_create(request, user_id):
+    interlocutor = User.objects.get(pk=user_id)
+    dialog = Dialog.objects.create(
+        name=interlocutor.username
+    )
+    DialogMembers.objects.create(
+        dialog=dialog,
+        member=request.user,
+        role=DialogMembers.CREATOR
+    )
+    DialogMembers.objects.create(
+        dialog=dialog,
+        member=interlocutor,
+        role=DialogMembers.INTERLOCUTOR
+    )
+
+    return HttpResponseRedirect(
+        reverse('mainapp:dialog', kwargs={'dialog_pk': dialog.pk})
+    )

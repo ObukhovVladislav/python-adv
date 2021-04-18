@@ -12,20 +12,11 @@
 </head>
 <body>
 <div>
-    <a href="{% url 'main:index' %}">Главная</a>
+    <a href="{% url 'mainapp:index' %}">Главная</a>
 </div>
 <h3 class="text-center" style="padding-top: 20px;">Диалог {{ dialog }}</h3>
-<div class="dialog-members">
-    <ul class="list-group" style="padding-top: 15px;">
-        {% for item in dialog_members %}
-        <li class="list-group-item">
-            <a href="#"
-               style="text-decoration: none;">
-                {{ item.member.username }}
-            </a>
-        </li>
-        {% endfor %}
-    </ul>
+<div class="message-create">
+
 </div>
 <div class="dialog-messages">
     <ul class="list-group" style="padding-top: 15px;">

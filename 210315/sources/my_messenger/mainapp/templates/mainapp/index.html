@@ -18,8 +18,10 @@
         </span>
     <a href="{% url 'auth:logout' %}" class="button-logout"
        style="color:white; padding:8px; font-size: 20px;">Выйти</a>
-    <a href="{% url 'mainapp:dialogue_creation' %}" class="button-creation"
-       style="color:white; padding:8px; font-size: 20px; margin-left: 50px;">Создать диалог</a>
+    <div class="dialog-create">
+        <a href="{% url 'mainapp:dialog_create' %}" class="button-creation"
+           style="color:white; padding:8px; font-size: 20px; margin-left: 50px;">Создать диалог</a>
+    </div>
 </div>
 {% endif %}
 <h3 class="text-center" style="padding-top: 20px;">Активные диалоги</h3>
