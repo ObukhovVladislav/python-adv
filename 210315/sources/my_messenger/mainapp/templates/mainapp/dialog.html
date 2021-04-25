@@ -16,14 +16,14 @@
 </div>
 <h3 class="text-center" style="padding-top: 20px;">Диалог {{ dialog }}</h3>
 <div class="message-create">
-    <a href="{% url 'mainapp:message_create' 1 %}"
+    <a href="{% url 'mainapp:message_create' sender.id %}"
        style="text-decoration: none;">
         Создать сообщение
     </a>
 </div>
 <div class="dialog-messages">
     <ul class="list-group" style="padding-top: 15px;">
-        {% for item in dialog_messages %}
+        {% for item in dialog.get_messages %}
         <li class="list-group-item">
             {{ item.sender.member.username }}
             ({{ item.created|date:"Y.m.d H:i" }}) - {{ item.text }}

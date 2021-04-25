@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db import models
+from django.utils.functional import cached_property
 
 
 class Dialog(models.Model):
@@ -8,19 +9,30 @@ class Dialog(models.Model):
                                    db_index=True)
     name = models.CharField(verbose_name='имя', max_length=64, blank=True)
 
+    @cached_property
+    def members(self):
+        return self.members.all()
+
+    def messages(self):
+        return Message.objects.filter(sender__in=self.members). \
+            select_related('sender__member')
+
+    def sender(self, user_id):
+        return self.members.filter(member_id=user_id).first()
+
     def __str__(self):
-        _members = self.members.all().values_list('member_id', flat=True)
-        members = User.objects.filter(pk__in=_members).values_list('username', flat=True)
-        result = f'{self.created.strftime("%Y.%m.%d %H:%M")}' \
+        members = User.objects.filter(
+            pk__in=self.members.values_list('member_id', flat=True)). \
+            values_list('username', flat=True)
+        result = f'{self.created.strftime("%Y.%m.%d %H:%M")} ' \
                  f'({" - ".join(members)})'
-        # if self.name:
-        #     result += f' ({self.name})'
         return result
 
-    class Meta:
-        verbose_name = 'диалог'
-        verbose_name_plural = 'диалоги'
-        ordering = ['-created']
+
+class Meta:
+    verbose_name = 'диалог'
+    verbose_name_plural = 'диалоги'
+    ordering = ['-created']
 
 
 class DialogMembers(models.Model):

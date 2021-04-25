@@ -1,4 +1,4 @@
-from django.forms import ModelForm
+from django.forms import ModelForm, HiddenInput
 
 from mainapp.models import Message
 
@@ -10,5 +10,6 @@ class MessageForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for name_field, field in self.fields.items():
-            print(name_field, field)
+        for field_name, field in self.fields.items():
+            if field_name == 'sender':
+                field.widget = HiddenInput()

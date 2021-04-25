@@ -2,7 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.views.generic import CreateView
 
 from mainapp.forms import MessageForm
@@ -22,16 +22,12 @@ def index(request):
 
 def dialog(request, dialog_pk):
     dialog = get_object_or_404(Dialog, pk=dialog_pk)
-    _dialog_members = DialogMembers.objects.filter(dialog=dialog)
-    dialog_members = _dialog_members.exclude(member=request.user). \
-        select_related('member')
-    messages = Message.objects.filter(sender__in=dialog_members). \
-        select_related('sender__member')
+    sender_dialog = dialog.sender(request.user.pk)
 
     context = {
+        'page_title': 'диалог',
         'dialog': dialog,
-        'dialog_members': dialog_members,
-        'messages': messages,
+        'sender_dialog': sender_dialog,
     }
     return render(request, 'mainapp/dialog.html', context)
 
@@ -73,13 +69,24 @@ def user_dialog_create(request, user_id):
 
 def delete_dialog(request, pk):
     example = get_object_or_404(Dialog, pk=pk)
-    if not example:
-        pass
-    else:
-        example.delete()
+    example.delete()
     return HttpResponseRedirect(reverse('mainapp:index'))
 
 
 class MessageCreate(CreateView):
+    model = Message
     form_class = MessageForm
-    success_url = reverse_lazy('mainapp:index')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        form = context['form']
+        sender_pk = self.request.resolver_match.kwargs['sender_pk']
+        form.initial['sender'] = sender_pk
+
+        return context
+
+    def get_success_url(self):
+        return reverse(
+            'mainapp:dialog',
+            kwargs={'dialog_pk': self.object.sender.dialog_id}
+        )

@@ -9,7 +9,8 @@ urlpatterns = [
     path('dialog/create/', mainapp.dialog_create, name='dialog_create'),
     path('user/dialog/create/<int:user_id>/', mainapp.user_dialog_create,
          name='user_dialog_create'),
-    path('user/dialog/delete/<int:pk>/', mainapp.delete_dialog, name='delete_dialog'),
+    path('user/dialog/delete/<int:pk>/', mainapp.delete_dialog,
+         name='delete_dialog'),
 
     path('dialog/member/<int:sender_pk>/message/create/',
          mainapp.MessageCreate.as_view(),
