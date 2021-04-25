@@ -36,21 +36,21 @@ def dialog(request, dialog_pk):
 def dialog_create(request):
     dialogues = request.user.dialogs.select_related('dialog').all(). \
         values_list('dialog_id', flat=True)
-    interlocutors = DialogMembers.objects.filter(dialog__in=dialogues). \
+    collocutors = DialogMembers.objects.filter(dialog__in=dialogues). \
         values_list('member_id', flat=True)
-    new_interlocutors = User.objects.exclude(pk__in=interlocutors)
+    new_collocutors = User.objects.exclude(pk__in=collocutors)
 
     context = {
         'page_title': 'новый диалог',
-        'new_interlocutors': new_interlocutors,
+        'new_interlocutors': new_collocutors,
     }
     return render(request, 'mainapp/dialog_create.html', context)
 
 
 def user_dialog_create(request, user_id):
-    interlocutor = User.objects.get(pk=user_id)
+    collocutor = User.objects.get(pk=user_id)
     dialog = Dialog.objects.create(
-        name=interlocutor.username
+        name=collocutor.username
     )
     DialogMembers.objects.create(
         dialog=dialog,
@@ -59,7 +59,7 @@ def user_dialog_create(request, user_id):
     )
     DialogMembers.objects.create(
         dialog=dialog,
-        member=interlocutor,
+        member=collocutor,
         role=DialogMembers.INTERLOCUTOR
     )
 
