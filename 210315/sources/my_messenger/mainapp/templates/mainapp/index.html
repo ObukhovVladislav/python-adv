@@ -13,30 +13,31 @@
 <body>
 {% if user.is_authenticated %}
 <div class="navbar navbar-expand-sm bg-primary navbar-dark">
-        <span style="margin-right: 18px; padding-bottom:2px; color: white; font-size: 20px">
+        <span style="margin-right: 18px; padding-bottom:2px; color: white; font-size: 25px">
             {{ user.username }}
         </span>
     <a href="{% url 'auth:logout' %}" class="button-logout"
-       style="color:white; padding:8px; font-size: 20px;">Выйти</a>
+       style="color:white; padding:8px; font-size: 25px;">Выйти</a>
     <div class="dialog-create">
         <a href="{% url 'mainapp:dialog_create' %}" class="button-creation"
-           style="color:white; padding:8px; font-size: 20px; margin-left: 50px;">Создать диалог</a>
+           style="color:white; padding:8px; font-size: 25px; margin-left: 10px;">Создать диалог</a>
     </div>
 </div>
 {% endif %}
 <h3 class="text-center" style="padding-top: 20px;">Активные диалоги</h3>
 <div class="dialogues-list">
-    <ul>
+    <ul class="list-group">
         {% for item in dialogues %}
-        <li>
+        <li class="list-group-item">
             <span class="dialog-link">
                 <a href="{% url 'mainapp:dialog' item.dialog_id %}"
-                   style="text-decoration: none;">
+                   style="text-decoration: none; font-size: 20px;">
                     {{ item.dialog }}
                 </a>
             </span>
             <span class="dialog-delete">
                 <a href="{% url 'mainapp:delete_dialog' item.dialog_id %}"
+                   class="btn btn-danger"
                    style="text-decoration: none;">
                     удалить
                 </a>

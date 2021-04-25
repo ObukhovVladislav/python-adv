@@ -12,14 +12,16 @@
 </head>
 <body>
 <div>
-    <a href="{% url 'mainapp:index' %}">Главная</a>
+    <a href="{% url 'mainapp:index' %}" style="text-decoration: none;">Главная</a>
 </div>
 <h3>Сообщения</h3>
 <div class="message-dialog">
     <form method="post">
         {% csrf_token %}
-        {{ form }}
-        <input type="submit" value="Создать">
+        <div class="form-group">
+            <label>{{ form }}</label>
+        </div>
+        <input type="submit" class="btn btn-success" value="Создать">
     </form>
 </div>
 </body>

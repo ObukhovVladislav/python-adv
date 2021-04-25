@@ -9,22 +9,29 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
+    <style>
+        .btn-warning{
+            background-color:dodgerblue!important;
+            border-color: dodgerblue!important;
+            color: white;
+        }
+    </style>
 </head>
 <body>
-<div>
-    <a href="{% url 'mainapp:index' %}">Главная</a>
+<div class="navbar navbar-expand-sm bg-primary navbar-dark">
+    <a style="color:white; font-size: 25px;" href="{% url 'mainapp:index' %}">Главная</a>
 </div>
-<h3>Диалог: {{ dialog }}</h3>
+<h3 class="text-center" style="margin-top: 20px;">Диалог: {{ dialog }}</h3>
 <div class="message-create">
-    <a href="{% url 'mainapp:message_create' sender.id %}"
-       style="text-decoration: none;">
-        сообщение
+    <a class="btn btn-success" href="{% url 'mainapp:message_create' sender.id %}"
+       style="text-decoration: none; margin-bottom: 20px;">
+        Начать переписку
     </a>
 </div>
 <div class="dialog-messages">
-    <ul>
+    <ul class="list-group">
         {% for item in dialog.receive_messages %}
-        <li>
+        <li class="list-group-item">
             {{ item.sender.member.username }}
             ({{ item.created|date:"Y.m.d H:i" }}) - {{ item.text }}
         </li>

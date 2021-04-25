@@ -14,13 +14,13 @@
 <div>
     <a href="{% url 'mainapp:index' %}">Главная</a>
 </div>
-<h1>Пользователи</h1>
-<div class="dialog-members">
-    <ul>
+<h1 class="text-center">Пользователи</h1>
+<div class="dialog-members ">
+    <ul class="list-group">
         {% for item in new_interlocutors %}
-        <li>
+        <li class="list-group-item">
             <a href="{% url 'mainapp:user_dialog_create' item.pk %}"
-               style="text-decoration: none;">
+               style="text-decoration: none">
                 {{ item.username }}
             </a>
         </li>
