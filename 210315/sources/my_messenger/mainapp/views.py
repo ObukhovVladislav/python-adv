@@ -2,8 +2,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
+from django.urls import reverse, reverse_lazy
+from django.views.generic import CreateView
 
+from mainapp.forms import MessageForm
 from mainapp.models import Message, DialogMembers, Dialog
 
 
@@ -70,11 +72,14 @@ def user_dialog_create(request, user_id):
 
 
 def delete_dialog(request, pk):
-    example = Dialog.objects.filter(pk=pk).first()
+    example = get_object_or_404(Dialog, pk=pk)
     if not example:
         pass
     else:
         example.delete()
-    return HttpResponseRedirect(
-        reverse('mainapp:index')
-    )
+    return HttpResponseRedirect(reverse('mainapp:index'))
+
+
+class MessageCreate(CreateView):
+    form_class = MessageForm
+    success_url = reverse_lazy('mainapp:index')
