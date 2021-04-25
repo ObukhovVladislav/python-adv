@@ -3,7 +3,7 @@ from django.forms import ModelForm, HiddenInput
 from mainapp.models import Message
 
 
-class MessageForm(ModelForm):
+class DialogMessageForm(ModelForm):
     class Meta:
         model = Message
         fields = ('sender', 'text')

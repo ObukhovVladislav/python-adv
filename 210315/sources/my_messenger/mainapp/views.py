@@ -5,7 +5,7 @@ from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views.generic import CreateView
 
-from mainapp.forms import MessageForm
+from mainapp.forms import DialogMessageForm
 from mainapp.models import Message, DialogMembers, Dialog
 
 
@@ -22,13 +22,14 @@ def index(request):
 
 def dialog(request, dialog_pk):
     dialog = get_object_or_404(Dialog, pk=dialog_pk)
-    sender_dialog = dialog.sender(request.user.pk)
+    sender = dialog.get_sender(request.user.pk)
 
     context = {
         'page_title': 'диалог',
         'dialog': dialog,
-        'sender_dialog': sender_dialog,
+        'sender': sender,
     }
+
     return render(request, 'mainapp/dialog.html', context)
 
 
@@ -68,14 +69,14 @@ def user_dialog_create(request, user_id):
 
 
 def delete_dialog(request, pk):
-    example = get_object_or_404(Dialog, pk=pk)
-    example.delete()
+    instance = get_object_or_404(Dialog, pk=pk)
+    instance.delete()
     return HttpResponseRedirect(reverse('mainapp:index'))
 
 
-class MessageCreate(CreateView):
+class DialogMessageCreate(CreateView):
     model = Message
-    form_class = MessageForm
+    form_class = DialogMessageForm
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

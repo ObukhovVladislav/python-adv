@@ -10,19 +10,19 @@ class Dialog(models.Model):
     name = models.CharField(verbose_name='имя', max_length=64, blank=True)
 
     @cached_property
-    def members(self):
+    def all_members(self):
         return self.members.all()
 
-    def messages(self):
-        return Message.objects.filter(sender__in=self.members). \
+    def get_messages(self):
+        return Message.objects.filter(sender__in=self.all_members). \
             select_related('sender__member')
 
-    def sender(self, user_id):
-        return self.members.filter(member_id=user_id).first()
+    def get_sender(self, user_id):
+        return self.all_members.filter(member_id=user_id).first()
 
     def __str__(self):
         members = User.objects.filter(
-            pk__in=self.members.values_list('member_id', flat=True)). \
+            pk__in=self.all_members.values_list('member_id', flat=True)). \
             values_list('username', flat=True)
         result = f'{self.created.strftime("%Y.%m.%d %H:%M")} ' \
                  f'({" - ".join(members)})'
