@@ -13,11 +13,11 @@ class Dialog(models.Model):
     def all_members(self):
         return self.members.all()
 
-    def get_messages(self):
+    def receive_messages(self):
         return Message.objects.filter(sender__in=self.all_members). \
             select_related('sender__member')
 
-    def get_sender(self, user_id):
+    def receive_sender(self, user_id):
         return self.all_members.filter(member_id=user_id).first()
 
     def __str__(self):
