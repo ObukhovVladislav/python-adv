@@ -34,7 +34,8 @@
        style="text-decoration: none; margin-bottom: 20px;">
         Начать переписку
     </a>
-    <a href="#" class="btn btn-primary dialog-update dialog-{{ dialog.id }}"
+    <a href="{% url 'mainapp:dialog_update' dialog.pk %}"
+       class="btn btn-primary dialog-update dialog-{{ dialog.id }}"
        data-dialog-pk="{{ dialog.id }}">
         Обновить
     </a>

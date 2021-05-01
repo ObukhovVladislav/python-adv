@@ -4,8 +4,9 @@ window.onload = function () {
         e.preventDefault();
         $.ajax( {
             url: e.target.href,
-            success: function (){
-                $('.card').update();
+            success: function (response){
+                console.log(response);
+//                $('.card').update();
             }
         })
     })
