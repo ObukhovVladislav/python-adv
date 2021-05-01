@@ -6,7 +6,6 @@ window.onload = function () {
             url: e.target.href,
             success: function (response){
                 console.log(response);
-//                $('.card').update();
             }
         })
     })
