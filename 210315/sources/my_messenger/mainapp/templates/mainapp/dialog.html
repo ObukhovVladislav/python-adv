@@ -9,12 +9,17 @@
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
     {% endblock %}
+    {% block js %}
+    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="{% static 'js/main.js' %}"></script>
+    {% endblock %}
     <style>
         .btn-warning{
             background-color:dodgerblue!important;
             border-color: dodgerblue!important;
             color: white;
         }
+
     </style>
 </head>
 <body>
@@ -38,5 +43,6 @@
         {% endfor %}
     </ul>
 </div>
+
 </body>
 </html>

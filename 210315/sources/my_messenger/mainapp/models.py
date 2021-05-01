@@ -17,6 +17,12 @@ class Dialog(models.Model):
         return Message.objects.filter(sender__in=self.all_members). \
             select_related('sender__member')
 
+    def unread_messages(self, user_id=None):
+        result = self.receive_messages().filter(read=False)
+        if user_id is None:
+            return result
+        return result.exclude(sender=self.receive_sender(user_id))
+
     def receive_sender(self, user_id):
         return self.all_members.filter(member_id=user_id).first()
 
