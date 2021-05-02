@@ -41,10 +41,10 @@
         </a>
     </div>
 </div>
-<div class="dialog-messages">
+<div class="messages-list">
     <ul class="list-group">
         {% for item in dialog.receive_messages %}
-        <li class="list-group-item">
+        <li class="list-group-item message-{{ item.pk }}">
             {{ item.sender.member.username }}
             ({{ item.created|date:"Y.m.d H:i" }}) - {{ item.text }}
         </li>
