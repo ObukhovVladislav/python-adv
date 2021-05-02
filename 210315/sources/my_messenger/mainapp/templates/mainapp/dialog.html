@@ -21,6 +21,7 @@
         }
 
 
+
     </style>
 </head>
 <body>
@@ -34,7 +35,7 @@
         Начать переписку
     </a>
     <div class="dialog-messages">
-        <a href="{% url 'mainapp:update_messages' dialog.id %}"
+        <a href="{% url 'mainapp:new_dialog_messages' dialog.id %}"
            style="text-decoration: none;"
            class="dialog-update">
             обновить

@@ -10,6 +10,7 @@ function messageRender(message) {
         messageNew.innerHTML = textMessage;
         let parent = $dialogDOMMessages.find('.messages-list');
         parent.prepend(messageNew);
+//        left timer = setTimeout(5000)
     }
 }
 
