@@ -93,16 +93,20 @@ class MessageCreate(CreateView):
         )
 
 
-def dialog_update(request, dialog_pk):
+def update_new_messages(request, dialog_pk):
     if request.is_ajax():
         dialog = Dialog.objects.filter(pk=dialog_pk).first()
         status = False
-        messages_new = None
+        new_messages = None
         if dialog:
             status = True
-            messages_new = dialog.unread_messages(request.user.pk)
-            messages_new.update(read=True)
+            new_messages_ = dialog.unread_messages(request.user.pk)
+            new_messages = [{'pk': el.pk,
+                             'username': el.sender.member.username,
+                             'created': el.created.strftime('%Y.%m.%d %H:%M'),
+                             'text': el.text}
+                            for el in new_messages_]
         return JsonResponse({
             'status': status,
-            'messages_new': messages_new,
+            'new_messages': new_messages,
         })
