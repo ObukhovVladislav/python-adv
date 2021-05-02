@@ -93,7 +93,7 @@ class MessageCreate(CreateView):
         )
 
 
-def update_new_messages(request, dialog_pk):
+def update_messages(request, dialog_pk):
     if request.is_ajax():
         dialog = Dialog.objects.filter(pk=dialog_pk).first()
         status = False
@@ -101,6 +101,7 @@ def update_new_messages(request, dialog_pk):
         if dialog:
             status = True
             new_messages_ = dialog.unread_messages(request.user.pk)
+            new_messages_.update(read=True)
             new_messages = [{'pk': el.pk,
                              'username': el.sender.member.username,
                              'created': el.created.strftime('%Y.%m.%d %H:%M'),
