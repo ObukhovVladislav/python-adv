@@ -18,7 +18,7 @@ class Dialog(models.Model):
             select_related('sender__member')
 
     def unread_messages(self, user_id=None):
-        result = self.receive_messages().filter(read=False)
+        result = self.receive_messages().filter(read=False).order_by('created')
         if user_id is None:
             return result
         return result.exclude(sender=self.receive_sender(user_id))

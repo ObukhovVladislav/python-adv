@@ -21,7 +21,6 @@
         }
 
 
-
     </style>
 </head>
 <body>
@@ -29,16 +28,18 @@
     <a style="color:white; font-size: 25px;" href="{% url 'mainapp:index' %}">Главная</a>
 </div>
 <h3 class="text-center" style="margin-top: 20px;">Диалог: {{ dialog }}</h3>
-<div class="message-create dialog-messages">
+<div class="message-create">
     <a class="btn btn-success" href="{% url 'mainapp:message_create' sender.id %}"
        style="text-decoration: none; margin-bottom: 20px;">
         Начать переписку
     </a>
-    <a href="{% url 'mainapp:dialog_update' dialog.pk %}"
-       class=" dialog-update dialog-{{ dialog.id }}"
-       data-dialog-pk="{{ dialog.id }}">
-        Обновить
-    </a>
+    <div class="dialog-messages">
+        <a href="{% url 'mainapp:dialog_new_update' dialog.id %}"
+           style="text-decoration: none;"
+           class="dialog-update">
+            обновить
+        </a>
+    </div>
 </div>
 <div class="dialog-messages">
     <ul class="list-group">
