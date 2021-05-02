@@ -16,6 +16,6 @@ urlpatterns = [
     path('dialog/member/<int:sender_pk>/message/create/',
          mainapp.MessageCreate.as_view(),
          name='message_create'),
-    path('user/dialog/new/messages/<int:dialog_pk>/', mainapp.dialog_new_update,
-         name='dialog_new_update'),
+    path('user/dialog/new/messages/<int:dialog_pk>/', mainapp.update_new_messages,
+         name='update_new_messages'),
 ]
