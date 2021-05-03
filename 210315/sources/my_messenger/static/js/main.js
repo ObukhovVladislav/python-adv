@@ -10,13 +10,16 @@ function messageRender(message) {
         messageNew.innerHTML = textMessage;
         let parent = $dialogDOMMessages.find('.messages-list');
         parent.prepend(messageNew);
-//        left timer = setTimeout(5000)
+
     }
 }
 
 
 window.onload = function () {
     console.log('ready');
+    setInterval(function(){
+    $('.dialog-update').trigger('click');
+    }, 5000);
     $dialogDOMMessages = $('.dialog-messages');
     $dialogDOMMessages.on('click', 'a.dialog-update', function (e) {
         e.preventDefault();
