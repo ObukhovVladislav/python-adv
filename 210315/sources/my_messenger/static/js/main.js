@@ -17,9 +17,6 @@ function messageRender(message) {
 
 window.onload = function () {
     console.log('ready');
-    setInterval(function(){
-    $('.dialog-update').trigger('click');
-    }, 5000);
     $dialogDOMMessages = $('.dialog-messages');
     $dialogDOMMessages.on('click', 'a.dialog-update', function (e) {
         e.preventDefault();
@@ -35,4 +32,7 @@ window.onload = function () {
             }
         })
     })
+    setInterval(function(){
+        $('.dialog-update').trigger('click');
+    }, 5000);
 }
