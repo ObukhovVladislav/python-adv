@@ -1,3 +1,4 @@
+let REFRESH_TIMEOUT = 2500;
 let $dialogDOMMessages;
 
 function messageRender(message) {
@@ -10,7 +11,6 @@ function messageRender(message) {
         messageNew.innerHTML = textMessage;
         let parent = $dialogDOMMessages.find('.messages-list');
         parent.prepend(messageNew);
-
     }
 }
 
@@ -31,8 +31,9 @@ window.onload = function () {
                 }
             }
         })
-    })
-    setInterval(function(){
+    });
+
+    setInterval(function() {
         $('.dialog-update').trigger('click');
-    }, 5000);
+    }, REFRESH_TIMEOUT);
 }

@@ -101,7 +101,6 @@ def new_dialog_messages(request, dialog_pk):
         if dialog:
             status = True
             _messages_new = dialog.unread_messages(request.user.pk)
-            # _messages_new.update(read=True)
             messages_new = [{'pk': el.pk,
                              'username': el.sender.member.username,
                              'created': el.created.strftime('%Y.%m.%d %H:%M'),
