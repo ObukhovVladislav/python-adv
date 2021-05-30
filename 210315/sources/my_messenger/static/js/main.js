@@ -1,31 +1,31 @@
 let REFRESH_TIMEOUT = 2500;
-let $dialogDOMMessages;
+let $dialogMessagesDOM;
 
 function messageRender(message) {
-    let messageDom = $('.message-' + message.pk);
-    let textMessage;
-    if (!messageDom.length) {
-        let messageNew = document.createElement('li');
-        messageNew.classList.add('message-' + message.pk);
-        textMessage = message.username + " (" + message.created + ") - " + message.text;
-        messageNew.innerHTML = textMessage;
-        let parent = $dialogDOMMessages.find('.messages-list');
-        parent.prepend(messageNew);
+    let domMessage = $('.message-' + message.pk);
+    let messageText;
+    if (!domMessage.length) {
+        let newMessage = document.createElement('li');
+        newMessage.classList.add('message-' + message.pk);
+        messageText = message.username + " (" + message.created + ") - " + message.text;
+        newMessage.innerHTML = messageText;
+        let parent = $dialogMessagesDOM.find('.messages-list');
+        parent.prepend(newMessage);
     }
 }
 
 
 window.onload = function () {
     console.log('ready');
-    $dialogDOMMessages = $('.dialog-messages');
-    $dialogDOMMessages.on('click', 'a.dialog-update', function (e) {
+    $dialogMessagesDOM = $('.dialog-messages');
+    $dialogMessagesDOM.on('click', 'a.dialog-update', function (e) {
         e.preventDefault();
         $.ajax({
             url: e.target.href,
             success: function (response) {
-                let messages_new = response.messages_new
-                if (messages_new) {
-                    messages_new.forEach(function (el, idx) {
+                let new_messages = response.new_messages;
+                if (new_messages) {
+                    new_messages.forEach(function (el, idx) {
                         messageRender(el);
                     })
                 }
@@ -33,7 +33,7 @@ window.onload = function () {
         })
     });
 
-    setInterval(function() {
-        $('.dialog-update').trigger('click');
+    setInterval(function () {
+        $('.dialog-update').trigger("click");
     }, REFRESH_TIMEOUT);
 }

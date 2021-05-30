@@ -13,17 +13,17 @@ class Dialog(models.Model):
     def all_members(self):
         return self.members.all()
 
-    def receive_messages(self):
+    def get_messages_all(self):
         return Message.objects.filter(sender__in=self.all_members). \
             select_related('sender__member')
 
-    def unread_messages(self, user_id=None):
-        result = self.receive_messages().filter(read=False).order_by('created')
+    def get_messages_new(self, user_id=None):
+        result = self.get_messages_all().filter(read=False).order_by('created')
         if user_id is None:
             return result
-        return result.exclude(sender=self.receive_sender(user_id))
+        return result.exclude(sender=self.get_sender(user_id))
 
-    def receive_sender(self, user_id):
+    def get_sender(self, user_id):
         return self.all_members.filter(member_id=user_id).first()
 
     def __str__(self):
@@ -34,11 +34,10 @@ class Dialog(models.Model):
                  f'({" - ".join(members)})'
         return result
 
-
-class Meta:
-    verbose_name = 'диалог'
-    verbose_name_plural = 'диалоги'
-    ordering = ['-created']
+    class Meta:
+        verbose_name = 'диалог'
+        verbose_name_plural = 'диалоги'
+        ordering = ['-created']
 
 
 class DialogMembers(models.Model):
@@ -60,12 +59,10 @@ class DialogMembers(models.Model):
                                related_name="dialogs")
     role = models.CharField(verbose_name='роль',
                             choices=ROLE_CHOICES,
-                            db_index=True,
-                            max_length=60)
+                            max_length=64,
+                            db_index=True)
 
     class Meta:
-        verbose_name = 'Участники диалога'
-        verbose_name_plural = 'Участники диалогов'
         ordering = ['dialog', '-role', 'member']
 
 

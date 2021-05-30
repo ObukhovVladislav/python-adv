@@ -3,16 +3,11 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>{{ page_title|default:"Сообщение"|capfirst }}</title>
-    {% block css %}
+    <title>{{ page_title|capfirst }}</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endblock %}
-    {% block js %}
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="{% static 'js/main.js' %}"></script>
-    {% endblock %}
     <style>
         .btn-warning{
             background-color:dodgerblue!important;
@@ -22,20 +17,21 @@
 
 
 
+
     </style>
 </head>
 <body>
 <div class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <a style="color:white; font-size: 25px;" href="{% url 'mainapp:index' %}">Главная</a>
+    <a style="color:white; font-size: 25px;" href="{% url 'main:index' %}">Главная</a>
 </div>
 <h3 class="text-center" style="margin-top: 20px;">Диалог: {{ dialog }}</h3>
 <div class="message-create">
-    <a class="btn btn-success" href="{% url 'mainapp:message_create' sender.id %}"
+    <a class="btn btn-success" href="{% url 'main:dialog_message_create' sender.id %}"
        style="text-decoration: none; margin-bottom: 20px;">
         Начать переписку
     </a>
     <div class="dialog-messages">
-        <a href="{% url 'mainapp:new_dialog_messages' dialog.id %}"
+        <a href="{% url 'main:dialog_new_messages' dialog.id %}"
            style="text-decoration: none;"
            class="dialog-update">
             обновить
@@ -44,7 +40,7 @@
 </div>
 <div class="messages-list">
     <ul class="list-group">
-        {% for item in dialog.receive_messages %}
+        {% for item in dialog.get_messages_all %}
         <li class="list-group-item message-{{ item.pk }}">
             {{ item.sender.member.username }}
             ({{ item.created|date:"Y.m.d H:i" }}) - {{ item.text }}
@@ -52,6 +48,5 @@
         {% endfor %}
     </ul>
 </div>
-
 </body>
 </html>

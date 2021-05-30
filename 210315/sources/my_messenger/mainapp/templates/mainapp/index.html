@@ -1,18 +1,10 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>{{ page_title|capfirst }}</title>
-    {% block css %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endblock %}
-    {% block js %}
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    {% endblock %}
 </head>
 <body>
 {% if user.is_authenticated %}
@@ -23,7 +15,7 @@
     <a href="{% url 'auth:logout' %}" class="button-logout"
        style="color:white; padding:8px; font-size: 25px;">Выйти</a>
     <div class="dialog-create">
-        <a href="{% url 'mainapp:dialog_create' %}" class="button-creation"
+        <a href="{% url 'main:dialog_create' %}" class="button-creation"
            style="color:white; padding:8px; font-size: 25px; margin-left: 10px;">Создать диалог</a>
     </div>
 </div>
@@ -34,13 +26,13 @@
         {% for item in dialogues %}
         <li class="list-group-item">
             <span class="dialog-link">
-                <a href="{% url 'mainapp:dialog' item.dialog_id %}"
+                <a href="{% url 'main:dialog_show' item.dialog_id %}"
                    style="text-decoration: none; font-size: 20px;">
                     {{ item.dialog }}
                 </a>
             </span>
             <span class="dialog-delete">
-                <a href="{% url 'mainapp:delete_dialog' item.dialog_id %}"
+                <a href="{% url 'main:dialog_delete' item.dialog_id %}"
                    class="btn btn-danger"
                    style="text-decoration: none;">
                     удалить

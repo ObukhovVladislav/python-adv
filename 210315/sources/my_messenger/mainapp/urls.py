@@ -5,23 +5,21 @@ app_name = 'mainapp'
 
 urlpatterns = [
     path('', mainapp.index, name='index'),
-    path('dialog/<int:dialog_pk>/', mainapp.dialog,
-         name='dialog'),
+    path('dialog/show/<int:dialog_pk>/', mainapp.dialog_show, name='dialog_show'),
 
-    path('dialog/create/', mainapp.dialog_create,
-         name='dialog_create'),
+    path('dialog/create/', mainapp.dialog_create, name='dialog_create'),
 
     path('user/dialog/create/<int:user_id>/', mainapp.user_dialog_create,
          name='user_dialog_create'),
 
-    path('user/dialog/delete/<int:pk>/', mainapp.delete_dialog,
-         name='delete_dialog'),
+    path('user/dialog/delete/<int:pk>/', mainapp.dialog_delete,
+         name='dialog_delete'),
 
     path('dialog/member/<int:sender_pk>/message/create/',
-         mainapp.MessageCreate.as_view(),
-         name='message_create'),
+         mainapp.DialogMessageCreate.as_view(),
+         name='dialog_message_create'),
 
     path('user/dialog/new/messages/<int:dialog_pk>/',
-         mainapp.new_dialog_messages,
-         name='new_dialog_messages'),
+         mainapp.dialog_new_messages,
+         name='dialog_new_messages'),
 ]

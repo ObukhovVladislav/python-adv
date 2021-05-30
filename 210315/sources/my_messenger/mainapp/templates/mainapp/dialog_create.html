@@ -1,30 +1,22 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>{{ page_title|capfirst }}</title>
-    {% block css %}
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    {% endblock %}
-    {% block js %}
-    <script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
-    <script src="{% static 'js/main.js' %}"></script>
-    {% endblock %}
 </head>
 <body>
 <div>
-    <a href="{% url 'mainapp:index' %}">Главная</a>
+    <a href="{% url 'main:index' %}">Главная</a>
 </div>
 <h1 class="text-center">Пользователи</h1>
 <div class="dialog-members ">
     <ul class="list-group">
         {% for item in new_interlocutors %}
         <li class="list-group-item">
-            <a href="{% url 'mainapp:user_dialog_create' item.pk %}"
-               style="text-decoration: none">
+            <a href="{% url 'main:user_dialog_create' item.pk %}"
+               style="text-decoration: none;">
                 {{ item.username }}
             </a>
         </li>
